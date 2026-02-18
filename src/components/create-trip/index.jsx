@@ -24,12 +24,15 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/service/firebaseConfig';
 import { getAuth} from 'firebase/auth';
 import { app } from '@/service/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const CreateTrip = () => {
     const [place, setPlace] = useState();
     const [formData, setFormData] = useState({});
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setloading] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleInputChange = (name, value) => {
         setFormData({
@@ -85,6 +88,7 @@ const CreateTrip = () => {
             });
             toast.success("Trip saved successfully!");
             setloading(false);
+            navigate('/view-trip/'+ docId)
         } catch (error) {
             console.error("Error saving trip:", error);
             toast.error("Failed to save trip: " + error.message);
