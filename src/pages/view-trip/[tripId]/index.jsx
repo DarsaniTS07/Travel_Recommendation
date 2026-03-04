@@ -1,12 +1,15 @@
+import Hotels from '@/components/custom/Hotels';
+import InfoSection from '@/components/InfoSection';
 import { db } from '@/service/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner';
 
 const Viewtrip = () => {
 
     const { tripId } = useParams();
+    const [trip,setTrip] = useState();
 
     const GetTripData = async () => {
         const docRef = doc(db, 'AITrips', tripId);
@@ -14,6 +17,7 @@ const Viewtrip = () => {
 
         if (docSnap.exists()) {
             console.log("Document:", docSnap.data());
+            setTrip(docSnap.data())
         } else {
             console.log("No such Document");
             toast("No trip Found")
@@ -22,15 +26,27 @@ const Viewtrip = () => {
     }
 
 // Used to get information from firebase
-// 
-//     
+   
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         tripId && GetTripData();
     }, [tripId])
 
     return (
-        <div>Viewtrip: {tripId}</div>
+        <div className='p-10 md:px-20 lg:px-44 xl:px-56'>
+            {/* Information Section */}
+            <InfoSection trip={trip}/>
+
+
+            {/* Recommended Hotels */}
+            <Hotels trip={trip}/>
+
+            {/* Itenary */}
+
+            {/* Footer */}
+
+        </div>
     )
 }
 

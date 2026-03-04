@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
-import { Input } from '../ui/input';
-import { AI_PROMPT, SelectBudgetOptions, SelectTravelesList } from '../constants/options';
-import { Button } from '../ui/button';
+import { Input } from '../../components/ui/input';
+import { AI_PROMPT, SelectBudgetOptions, SelectTravelesList } from '../../components/constants/options';
+import { Button } from '../../components/ui/button';
 import { toast } from 'sonner';
 import { chatSession } from '@/service/AIModal';
 import logo from "/src/assets/logoipsum-365.svg"
@@ -10,13 +10,10 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -110,6 +107,7 @@ const CreateTrip = () => {
                 
                 // Create custom token via backend to authenticate with Firebase
                 // For now, we'll use the Google idToken with Firebase
+                // eslint-disable-next-line no-unused-vars
                 const auth = getAuth(app);
                 
                 // Store the token for verification in Firestore

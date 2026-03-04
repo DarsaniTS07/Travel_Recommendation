@@ -4,11 +4,11 @@ import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router'
 import './index.css'
 import App from './App.jsx'
-import CreateTrip from './components/create-trip'
+import CreateTrip from './pages/create-trip'
 import Header from './components/custom/Header'
 import { Toaster } from './components/ui/sonner'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import Viewtrip from './components/view-trip/[tripId]'
+import Viewtrip from './pages/view-trip/[tripId]'
 
 const router = createBrowserRouter([
   {
