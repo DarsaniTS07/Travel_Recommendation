@@ -1,5 +1,6 @@
-import Hotels from '@/components/custom/Hotels';
+import Hotels from '@/components/Hotels';
 import InfoSection from '@/components/InfoSection';
+import PlacesToVisit from '@/components/PlacesToVisit';
 import { db } from '@/service/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
@@ -43,6 +44,7 @@ const Viewtrip = () => {
             <Hotels trip={trip}/>
 
             {/* Itenary */}
+            <PlacesToVisit trip={trip}/>
 
             {/* Footer */}
 

@@ -25,7 +25,7 @@ export const chatSession = model.startChat({
             role: "user",
             parts: [
                 {
-                    text: "Generate Travel Plan for Location: Las Vegas, for 3 Days for Couple with a Cheap Budget Give me a Hotels options list with HotelName, Hotel address, Price hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, rating, Time travel each of the location for 3 days with each day plan with best time to visit in JSON format"
+                    text: "Generate Travel Plan for Location: Las Vegas, for 3 Days for Couple with a Cheap Budget Give me a Hotels options list with HotelName, Hotel address, Price hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, rating, Time to travel each of the location for 3 days with each day plan with best time to visit in JSON format"
                 }
             ]
         },
