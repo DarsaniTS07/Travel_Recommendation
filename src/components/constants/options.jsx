@@ -47,4 +47,43 @@ export const SelectBudgetOptions = [
     }
 ]
 
-export const AI_PROMPT = "Generate Travet Plan for Location: {location}, for {totalDays} Days for {traveler} with a {budget} Budget Give me a Hotels options list with HotelName, Hotel address, Price hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url Geo Coordinates, ticket Pricing rating, Time travel each of the location for {totalDays} days with each day plan with best time to visit in JSON format"
+export const AI_PROMPT = `Generate a detailed Travel Plan for Location: {location}, for {totalDays} Days for {traveler} with a {budget} Budget in valid JSON format. 
+
+IMPORTANT: 
+1. You MUST generate an itinerary entry for EACH DAY from day 1 to day {totalDays}. Do not skip any days.
+2. For EACH DAY, include EXACTLY 3-4 places/activities with TIME RANGES in chronological order throughout the entire day.
+3. Use time ranges like "9:00 AM - 11:00 AM", "11:00 AM - 1:00 PM", "1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM", "5:00 PM - 7:00 PM", "7:00 PM - 9:00 PM" etc.
+4. Arrange places in order: Forenoon (9 AM - 12 PM) → Afternoon (12 PM - 5 PM) → Evening/Sunset (5 PM - 8 PM) → Night (8 PM onwards)
+
+Return ONLY the JSON with this exact structure (no markdown, no code blocks, just raw JSON):
+{
+  "hotels": [
+    {
+      "hotelName": "string",
+      "hotelAddress": "string",
+      "price": "string",
+      "hotelImageUrl": "string",
+      "geoCoordinates": "string",
+      "rating": "number",
+      "description": "string"
+    }
+  ],
+  "itinerary": [
+    {
+      "day": "number",
+      "theme": "string",
+      "places": [
+        {
+          "placeName": "string",
+          "placeDetails": "string",
+          "placeImageUrl": "string",
+          "geoCoordinates": "string",
+          "ticketPricing": "string",
+          "rating": "string",
+          "timeToTravel": "string",
+          "bestTimeToVisit": "time range like 9:00 AM - 11:00 AM or 1:00 PM - 3:00 PM"
+        }
+      ]
+    }
+  ]
+}`
