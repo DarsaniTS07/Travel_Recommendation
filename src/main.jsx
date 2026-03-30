@@ -9,6 +9,7 @@ import Header from './components/custom/Header'
 import { Toaster } from './components/ui/sonner'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Viewtrip from './pages/view-trip/[tripId]'
+import MyTrips from './pages/my-trips'
 
 // Load Google Maps API script before rendering the app
 const loadGoogleMapsScript = () => {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path:'/view-trip/:tripId',
     element:<Viewtrip/>
+  },
+  {
+    path:'/my-trips',
+    element:<MyTrips/>
   }
 ])
 

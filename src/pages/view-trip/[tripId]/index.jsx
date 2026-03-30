@@ -36,7 +36,6 @@ const Viewtrip = () => {
 
 // Used to get information from firebase
    
-
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         tripId && GetTripData();
