@@ -33,14 +33,16 @@ const UserTripCardItem = ({ trip }) => {
 
   return (
     <Link to={'/view-trip/' + trip?.id}>
-    <div className='hover:scale-105 transition-all'>
-      <img src={photoUrl? photoUrl : aero} 
-        className='object-cover rounded-xl h-[220px]' />
-      <div>
-        <h2 className='font-bold text-lg'>
+    <div className='hover:scale-105 transition-all duration-300 group cursor-pointer'>
+      <div className='rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300'>
+        <img src={photoUrl? photoUrl : aero} 
+          className='object-cover rounded-2xl h-56 w-full group-hover:brightness-90 transition-all duration-300' />
+      </div>
+      <div className='mt-4 space-y-1'>
+        <h2 className='font-bold text-lg text-gray-900'>
           {trip?.userSelection?.location?.label}
         </h2>
-        <h2 className='text-sm text-gray-500'>{trip?.userSelection?.noOfDays} Days trip with {trip?.userSelection?.budget} Budget</h2>
+        <h2 className='text-sm text-gray-600 font-medium'>{trip?.userSelection?.noOfDays} Days trip with {trip?.userSelection?.budget} Budget</h2>
       </div>
     </div>
     </Link>

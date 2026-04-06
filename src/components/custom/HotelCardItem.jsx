@@ -33,13 +33,17 @@ const HotelCardItem = ({ hotel }) => {
 
     return (
         <Link to={'https://www.google.com/maps/search/?api=1&query=lumen+field' + hotel.hotelName + "," + hotel?.hotelAddress} target='_blank'>
-            <div className='hover:scale-105 transition-all cursor-pointer'>
-                <img src={photoUrl? photoUrl : aero} className='rounded-xl h-45 w-full object-cover' />
-                <div className='my-2 flex flex-col gap-2'>
-                    <h2 className='font-medium'>{hotel?.hotelName}</h2>
-                    <h2 className='text-xs text-gray-500'>📍{hotel?.hotelAddress}</h2>
-                    <h2 className='text-sm '>💵 {hotel?.price}</h2>
-                    <h2 className='text-sm '>⭐ {hotel?.rating}</h2>
+            <div className='hover:scale-105 transition-all duration-300 cursor-pointer group'>
+                <div className='rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300'>
+                  <img src={photoUrl? photoUrl : aero} className='rounded-xl h-48 w-full object-cover group-hover:brightness-95 transition-all duration-300' />
+                </div>
+                <div className='my-3 flex flex-col gap-2'>
+                    <h2 className='font-bold text-gray-900 text-lg'>{hotel?.hotelName}</h2>
+                    <h2 className='text-sm text-gray-600'>📍 {hotel?.hotelAddress}</h2>
+                    <div className='flex justify-between items-center pt-1'>
+                      <h2 className='text-sm font-semibold text-green-600'>💵 {hotel?.price}</h2>
+                      <h2 className='text-sm font-semibold bg-yellow-50 px-2 py-1 rounded-full'>⭐ {hotel?.rating}</h2>
+                    </div>
                 </div>
             </div>
         </Link>

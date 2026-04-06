@@ -42,10 +42,13 @@ const Viewtrip = () => {
     }, [tripId])
 
     return (
-        <div className='p-10 md:px-20 lg:px-44 xl:px-56'>
+        <div className='p-6 md:px-20 lg:px-44 xl:px-56 space-y-10'>
             {loading ? (
-                <div className='text-center py-20'>
-                    <p className='text-xl text-gray-500'>Loading your trip...</p>
+                <div className='text-center py-32'>
+                    <div className='inline-block'>
+                        <div className='animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600'></div>
+                    </div>
+                    <p className='text-xl text-gray-600 mt-4 font-semibold'>Loading your trip...</p>
                 </div>
             ) : (
                 <>

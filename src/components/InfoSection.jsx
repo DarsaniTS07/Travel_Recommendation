@@ -32,18 +32,22 @@ const InfoSection = ({ trip }) => {
   }, [trip?.userSelection?.location?.label])
 
   return (
-    <div>
-      <img src={photoUrl? photoUrl : aero} className='h-[340px] w-full object-cover rounded-xl' />
-      <div className='flex justify-between items-center'>
-        <div className='my-5 flex flex-col gap-2'>
-          <h2 className='font-bold text-2xl'>{trip?.userSelection?.location?.label}</h2>
-          <div className='flex gap-5'>
-            <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-md'> 📅{trip?.userSelection?.noOfDays} Day</h2>
-            <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-md'>💰Budget : {trip?.userSelection?.budget} </h2>
-            <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-md'>🏞️No. of Traveller : {trip?.userSelection?.traveler} </h2>
+    <div className='space-y-5'>
+      <div className='rounded-2xl overflow-hidden shadow-xl'>
+        <img src={photoUrl? photoUrl : aero} className='h-80 w-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300' />
+      </div>
+      <div className='flex justify-between items-start gap-5'>
+        <div className='flex flex-col gap-3 flex-1'>
+          <h2 className='font-bold text-3xl bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent'>{trip?.userSelection?.location?.label}</h2>
+          <div className='flex flex-wrap gap-3'>
+            <div className='px-4 py-2 bg-blue-100 rounded-full text-blue-700 text-sm font-semibold'>📅 {trip?.userSelection?.noOfDays} Days</div>
+            <div className='px-4 py-2 bg-green-100 rounded-full text-green-700 text-sm font-semibold'>💰 {trip?.userSelection?.budget}</div>
+            <div className='px-4 py-2 bg-purple-100 rounded-full text-purple-700 text-sm font-semibold'>🏞️ {trip?.userSelection?.traveler} Traveler(s)</div>
           </div>
         </div>
-        <Button> <IoIosSend /> </Button>
+        <Button className='bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white rounded-full p-3 h-12 w-12 shadow-lg hover:shadow-xl transition-all'> 
+          <IoIosSend className='text-xl' /> 
+        </Button>
       </div>
     </div>
   )

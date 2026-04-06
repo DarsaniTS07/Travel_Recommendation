@@ -66,16 +66,16 @@ const Header = () => {
 
 
   return (
-    <div className='w-full p-3 shadow-sm flex justify-between items-center px-5'>
-      <img src={logo} alt="Logo" />
+    <div className='w-full px-6 py-4 shadow-md bg-white flex justify-between items-center sticky top-0 z-50 border-b border-gray-100'>
+      <img src={logo} alt="Logo" className='hover:opacity-80 transition-opacity duration-300' />
       <div>
         {user ?
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-4 items-center">
             <a href='/create-trip'>            
-            <Button variant="outline" className="rounded-full">+ Create Trip</Button>
+            <Button variant="outline" className="rounded-full bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100">+ Create Trip</Button>
             </a>
             <a href='/my-trips'>            
-            <Button variant="outline" className="rounded-full">My trips</Button>
+            <Button variant="outline" className="rounded-full bg-green-50 text-green-600 border-green-200 hover:bg-green-100">My trips</Button>
             </a>
             
             <Popover>
@@ -83,12 +83,12 @@ const Header = () => {
                 <img
               src={user?.picture}
               alt="User profile"
-              className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover"
+              className="w-10 h-10 rounded-full border-3 border-blue-400 object-cover cursor-pointer hover:border-blue-500 transition-all duration-300 shadow-md"
               onError={(e) => { e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"%3E%3Ccircle cx="20" cy="20" r="20" fill="%23e5e7eb"/%3E%3Ccircle cx="20" cy="12" r="5" fill="%236b7280"/%3E%3Cpath d="M 10 28 Q 10 20 20 20 Q 30 20 30 28" fill="%236b7280"/%3E%3C/svg%3E' }}
             />
               </PopoverTrigger>
-              <PopoverContent>
-             <h2 className='cursor-pointer' onClick={() => {
+              <PopoverContent className='rounded-lg shadow-lg'>
+             <h2 className='cursor-pointer text-red-600 font-semibold hover:text-red-700 transition-colors' onClick={() => {
               googleLogout();
               localStorage.clear();
               window.location.reload();
@@ -96,26 +96,26 @@ const Header = () => {
               </PopoverContent>
             </Popover>
           </div>
-          : <Button onClick={() => {setOpenDialog(true)}}>
+          : <Button onClick={() => {setOpenDialog(true)}} className='bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold rounded-full px-6'>
             Sign In
           </Button>
         }
 
       </div>
       <Dialog open={openDialog}>
-                <DialogContent>
+                <DialogContent className='rounded-2xl'>
                     <DialogHeader>
-                        <div className='flex flex-col items-center gap-2'>
-                            <img src={logo} />
-                            <DialogTitle className='text-lg'>Sign In with Google</DialogTitle>
+                        <div className='flex flex-col items-center gap-3'>
+                            <img src={logo} className='w-16 h-16' />
+                            <DialogTitle className='text-2xl font-bold'>Sign In with Google</DialogTitle>
                         </div>
-                        <DialogDescription>
+                        <DialogDescription className='text-gray-600'>
                             Sign in to the App with google authentication securely
                         </DialogDescription>
                     </DialogHeader>
                     <Button
                         onClick={login}
-                        className="w-full mt-5 flex gap-4 items-center justify-center"
+                        className="w-full mt-5 flex gap-4 items-center justify-center bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold transition-all duration-300"
                     >
                         <FcGoogle className='h-7 w-7' />
                         Sign in with Google

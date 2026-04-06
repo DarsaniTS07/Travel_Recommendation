@@ -122,12 +122,15 @@ const CreateTrip = () => {
     }
 
     return (
-        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10'>
-            <h2 className='font-bold text-3xl'>Tell us your travel preferences</h2>
-            <p className='mt-3 text-gray-500 text-xl'>Just provide some basic information and our trip planner will generate a customized itinerary based on your preferences.</p>
-            <div className='mt-20 flex flex-col gap-5'>
-                <div>
-                    <h2 className='text-xl my-3 font-medium'>What is your Destination of Choice?</h2>
+        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 py-10'>
+            <div className='space-y-4 mb-10'>
+              <h2 className='font-bold text-4xl bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent'>Tell us your travel preferences</h2>
+              <p className='text-gray-600 text-lg'>Just provide some basic information and our trip planner will generate a customized itinerary based on your preferences.</p>
+            </div>
+            
+            <div className='mt-10 flex flex-col gap-8 bg-white p-8 rounded-2xl shadow-lg'>
+                <div className='space-y-3'>
+                    <h2 className='text-xl font-bold text-gray-900'>🗺️ What is your Destination of Choice?</h2>
                     <GooglePlacesAutocomplete
                         selectProps={{
                             place,
@@ -135,65 +138,72 @@ const CreateTrip = () => {
                         }}
                     />
                 </div>
-                <div>
-                    <h2 className='text-xl my-3 font-medium'>How many days are you planning your trip?</h2>
+                
+                <div className='space-y-3'>
+                    <h2 className='text-xl font-bold text-gray-900'>📅 How many days are you planning your trip?</h2>
                     <Input
-                        placeholder={"Ex.3"}
+                        placeholder={"Ex. 3"}
                         type="number"
+                        className='text-lg p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none'
                         onChange={(e) => handleInputChange('noOfDays', e.target.value)} />
                 </div>
-                <div>
-                    <h2 className='text-xl my-3 font-medium'>What is your Budget?</h2>
-                    <div className='grid grid-cols-3 gap-5 mt-5'>
+                
+                <div className='space-y-4'>
+                    <h2 className='text-xl font-bold text-gray-900'>💰 What is your Budget?</h2>
+                    <div className='grid grid-cols-3 gap-4 mt-4'>
                         {SelectBudgetOptions.map((item, index) => (
                             <div key={index}
                                 onClick={() => handleInputChange('budget', item.title)}
-                                className={`p-4 border rounded-lg hover:shadow-lg cursor-pointer ${formData?.budget == item.title && 'shadow-lg border-black'}`}>
-                                <h2 className='text-4xl'>{item.icon}</h2>
-                                <h2 className='font-bold text-lg'>{item.title}</h2>
-                                <p className='text-gray-500 text-sm'>{item.desc}</p>
+                                className={`p-5 border-2 rounded-xl hover:shadow-xl cursor-pointer transition-all duration-300 ${formData?.budget == item.title ? 'shadow-xl border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                                <h2 className='text-4xl mb-2'>{item.icon}</h2>
+                                <h2 className='font-bold text-lg text-gray-900'>{item.title}</h2>
+                                <p className='text-gray-600 text-sm mt-1'>{item.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div>
-                    <h2 className='text-xl my-3 font-medium'>Who do you plan on ravelling with on your next adventure?</h2>
-                    <div className='grid grid-cols-3 gap-5 mt-5'>
+                
+                <div className='space-y-4'>
+                    <h2 className='text-xl font-bold text-gray-900'>👥 Who do you plan on travelling with?</h2>
+                    <div className='grid grid-cols-3 gap-4 mt-4'>
                         {SelectTravelesList.map((item, index) => (
                             <div key={index}
                                 onClick={() => handleInputChange('traveler', item.people)}
-                                className={`p-4 border rounded-lg hover:shadow-lg cursor-pointer ${formData?.traveler == item.people && 'shadow-lg border-black'}`}>
-                                <h2 className='text-4xl'>{item.icons}</h2>
-                                <h2 className='font-bold text-lg'>{item.title}</h2>
-                                <p className='text-gray-500 text-sm'>{item.desc}</p>
+                                className={`p-5 border-2 rounded-xl hover:shadow-xl cursor-pointer transition-all duration-300 ${formData?.traveler == item.people ? 'shadow-xl border-green-600 bg-green-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                                <h2 className='text-4xl mb-2'>{item.icons}</h2>
+                                <h2 className='font-bold text-lg text-gray-900'>{item.title}</h2>
+                                <p className='text-gray-600 text-sm mt-1'>{item.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+            
             <div className='flex justify-end my-10'>
                 <Button
+                    onClick={onGenearteTrip}
                     disabled={loading}
-                    onClick={onGenearteTrip}>
+                    className='bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50'>
                     {loading ?
-                        <AiOutlineLoading3Quarters className='h-7 w-7 animate-spin' /> :
-                        'Generate Trip'}
+                        <AiOutlineLoading3Quarters className='h-6 w-6 animate-spin' /> :
+                        'Generate Trip 🚀'}
                 </Button>
             </div>
+            
             <Dialog open={openDialog}>
-                <DialogContent>
+                <DialogContent className='rounded-2xl'>
                     <DialogHeader>
-                        <div className='flex flex-col items-center gap-2'>
-                            <img src={logo} />
-                            <DialogTitle className='text-lg'>Sign In with Google</DialogTitle>
+                        <div className='flex flex-col items-center gap-3'>
+                            <img src={logo} className='w-16 h-16' />
+                            <DialogTitle className='text-2xl font-bold'>Sign In with Google</DialogTitle>
                         </div>
-                        <DialogDescription>
+                        <DialogDescription className='text-gray-600'>
                             Sign in to the App with google authentication securely
                         </DialogDescription>
                     </DialogHeader>
                     <Button
                         onClick={login}
-                        className="w-full mt-5 flex gap-4 items-center justify-center"
+                        className="w-full mt-5 flex gap-4 items-center justify-center bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold transition-all duration-300"
                     >
                         <FcGoogle className='h-7 w-7' />
                         Sign in with Google
