@@ -74,10 +74,11 @@ const CreateTrip = () => {
         }
         setloading(true);
         const agesString = selectedAges.join(', ');
+        const travelerInfo = SelectTravelesList.find(item => item.id === formData?.traveler)?.people;
         const FINAL_PROMPT = AI_PROMPT
             .replace('{location}', formData?.location.label)
             .replace('{totalDays}', formData?.noOfDays)
-            .replace('{traveler}', formData?.traveler)
+            .replace('{traveler}', travelerInfo)
             .replace('{budget}', formData?.budget)
             .replace('{ages}', agesString)
             .replace('{totalDays}', formData?.noOfDays)
@@ -198,8 +199,8 @@ const CreateTrip = () => {
                     <div className='grid grid-cols-3 gap-4 mt-4'>
                         {SelectTravelesList.map((item, index) => (
                             <div key={index}
-                                onClick={() => handleInputChange('traveler', item.people)}
-                                className={`p-5 border-2 rounded-xl hover:shadow-xl cursor-pointer transition-all duration-300 ${formData?.traveler == item.people ? 'shadow-xl border-green-600 bg-green-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                                onClick={() => handleInputChange('traveler', item.id)}
+                                className={`p-5 border-2 rounded-xl hover:shadow-xl cursor-pointer transition-all duration-300 ${formData?.traveler == item.id ? 'shadow-xl border-green-600 bg-green-50' : 'border-gray-200 hover:border-gray-300'}`}>
                                 <h2 className='text-4xl mb-2'>{item.icons}</h2>
                                 <h2 className='font-bold text-lg text-gray-900'>{item.title}</h2>
                                 <p className='text-gray-600 text-sm mt-1'>{item.desc}</p>
