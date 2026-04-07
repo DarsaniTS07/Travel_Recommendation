@@ -85,15 +85,79 @@ export const AgeGroups = [
     }
 ]
 
-export const AI_PROMPT = `Generate a detailed Travel Plan for Location: {location}, for {totalDays} Days for {traveler} with a {budget} Budget. The group includes people of ages: {ages}. Create recommendations that cater to all age groups in the family. In valid JSON format. 
+export const ActivityPreferences = [
+    {
+        id: 1,
+        title: "Adventure",
+        icon: "🏔️",
+        desc: "Hiking, climbing & extreme sports"
+    },
+    {
+        id: 2,
+        title: "Beach",
+        icon: "🏖️",
+        desc: "Sun, sand & water activities"
+    },
+    {
+        id: 3,
+        title: "Cultural",
+        icon: "🏛️",
+        desc: "Heritage sites & local traditions"
+    },
+    {
+        id: 4,
+        title: "History",
+        icon: "🏰",
+        desc: "Historical landmarks & museums"
+    },
+    {
+        id: 5,
+        title: "Food",
+        icon: "🍽️",
+        desc: "Culinary tours & local cuisine"
+    },
+    {
+        id: 6,
+        title: "Shopping",
+        icon: "🛍️",
+        desc: "Markets, malls & local shops"
+    },
+    {
+        id: 7,
+        title: "Nightlife",
+        icon: "🎉",
+        desc: "Bars, clubs & entertainment"
+    },
+    {
+        id: 8,
+        title: "Nature",
+        icon: "🌿",
+        desc: "Parks, gardens & wildlife"
+    },
+    {
+        id: 9,
+        title: "Photography",
+        icon: "📸",
+        desc: "Scenic spots & beautiful views"
+    },
+    {
+        id: 10,
+        title: "Wellness",
+        icon: "🧘",
+        desc: "Yoga, spa & relaxation"
+    }
+]
+
+export const AI_PROMPT = `Generate a detailed Travel Plan for Location: {location}, for {totalDays} Days for {traveler} with a {budget} Budget. The group includes people of ages: {ages}. User preferences for activities: {activities}. Create recommendations that cater to all age groups in the family and focus on the selected activities. In valid JSON format. 
 
 IMPORTANT: 
 1. You MUST generate an itinerary entry for EACH DAY from day 1 to day {totalDays}. Do not skip any days.
 2. For EACH DAY, include EXACTLY 3-4 places/activities with TIME RANGES in chronological order throughout the entire day.
 3. Use time ranges like "9:00 AM - 11:00 AM", "11:00 AM - 1:00 PM", "1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM", "5:00 PM - 7:00 PM", "7:00 PM - 9:00 PM" etc.
 4. Arrange places in order: Forenoon (9 AM - 12 PM) → Afternoon (12 PM - 5 PM) → Evening/Sunset (5 PM - 8 PM) → Night (8 PM onwards)
-5. Choose attractions and activities that are suitable for ALL ages in the group. Include family-friendly options.
-6. Consider accessibility needs for different age groups (strollers for infants, shorter walking distances for elderly, exciting activities for teenagers, educational content for children)
+5. Prioritize activities that match the user's preferences: {activities}
+6. Choose attractions and activities that are suitable for ALL ages in the group. Include family-friendly options.
+7. Consider accessibility needs for different age groups (strollers for infants, shorter walking distances for elderly, exciting activities for teenagers, educational content for children)
 
 Return ONLY the JSON with this exact structure (no markdown, no code blocks, just raw JSON):
 {
