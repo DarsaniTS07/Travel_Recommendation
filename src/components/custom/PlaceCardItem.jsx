@@ -8,27 +8,37 @@ const PlaceCardItem = ({place}) => {
   
   const [photoUrl, setPhotoUrl] = useState()
       
-        useEffect(() => {
-          const GetPlacePhoto = async () => {
+  const handleViewMap = () => {
+    if (place.geoCoordinates) {
+      const [latitude, longitude] = place.geoCoordinates.split(',').map(coord => coord.trim());
+      const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      window.open(mapsUrl, '_blank');
+    } else {
+      alert('Map coordinates not available for this location');
+    }
+  }
       
-            try {
-              const data = {
-                textQuery: place.placeName
-              }
-              const result = await GetPlaceDetails(data)
-              const photo = result.data?.places?.[0]?.photos?.[0]
-              if (photo?.name) {
-                const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', photo.name)
-                setPhotoUrl(PhotoUrl)
-                console.log('Photo loaded successfully:', PhotoUrl)
-              }
-            } catch (error) {
-              console.error('Failed to fetch place photo:', error.message)
-            }
-          }
-      
-          GetPlacePhoto()
-        }, [place])
+  useEffect(() => {
+    const GetPlacePhoto = async () => {
+
+      try {
+        const data = {
+          textQuery: place.placeName
+        }
+        const result = await GetPlaceDetails(data)
+        const photo = result.data?.places?.[0]?.photos?.[0]
+        if (photo?.name) {
+          const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', photo.name)
+          setPhotoUrl(PhotoUrl)
+          console.log('Photo loaded successfully:', PhotoUrl)
+        }
+      } catch (error) {
+        console.error('Failed to fetch place photo:', error.message)
+      }
+    }
+
+    GetPlacePhoto()
+  }, [place])
   
 
   return (
@@ -40,7 +50,7 @@ const PlaceCardItem = ({place}) => {
             <h2 className='mt-3 text-gray-700 font-medium'>🕙 {place.timeToTravel}</h2>
             <div className='flex gap-3 items-center mt-4'>
               <span className='text-yellow-500 font-semibold bg-yellow-50 px-3 py-1 rounded-full text-sm'>⭐ {place.rating}</span>
-              <Button className='gap-2 bg-blue-600 hover:bg-blue-700 rounded-lg'><FaMapLocationDot /> View Map</Button>
+              <Button onClick={handleViewMap} className='gap-2 bg-blue-600 hover:bg-blue-700 rounded-lg'><FaMapLocationDot /> View Map</Button>
             </div>
         </div>
     </div>

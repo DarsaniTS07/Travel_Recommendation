@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import { Input } from '../../components/ui/input';
-import { AI_PROMPT, SelectBudgetOptions, SelectTravelesList } from '../../components/constants/options';
+import { AI_PROMPT, SelectBudgetOptions, SelectTravelesList, AgeGroups } from '../../components/constants/options';
 import { Button } from '../../components/ui/button';
 import { toast } from 'sonner';
 import { chatSession } from '@/service/AIModal';
@@ -28,6 +28,7 @@ const CreateTrip = () => {
     const [formData, setFormData] = useState({});
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setloading] = useState(false);
+    const [selectedAges, setSelectedAges] = useState([]);
 
     const navigate = useNavigate();
 
@@ -36,6 +37,16 @@ const CreateTrip = () => {
             ...formData,
             [name]: value
         })
+    }
+
+    const handleAgeSelection = (ageGroup) => {
+        setSelectedAges(prevAges => {
+            if (prevAges.includes(ageGroup.value)) {
+                return prevAges.filter(age => age !== ageGroup.value);
+            } else {
+                return [...prevAges, ageGroup.value];
+            }
+        });
     }
 
     useEffect(() => {
@@ -57,12 +68,18 @@ const CreateTrip = () => {
             toast("Please fill all fields")
             return;
         }
+        if (selectedAges.length === 0) {
+            toast("Please select at least one age group")
+            return;
+        }
         setloading(true);
+        const agesString = selectedAges.join(', ');
         const FINAL_PROMPT = AI_PROMPT
             .replace('{location}', formData?.location.label)
             .replace('{totalDays}', formData?.noOfDays)
             .replace('{traveler}', formData?.traveler)
             .replace('{budget}', formData?.budget)
+            .replace('{ages}', agesString)
             .replace('{totalDays}', formData?.noOfDays)
 
         const result = await chatSession.sendMessage(FINAL_PROMPT);
@@ -78,7 +95,7 @@ const CreateTrip = () => {
             const user = JSON.parse(localStorage.getItem('user'));
             const docId = Date.now().toString();
             await setDoc(doc(db, "AITrips", docId), {
-                userSelection: formData,
+                userSelection: { ...formData, ages: selectedAges },
                 tripData: JSON.parse(TripData),
                 userEmail: user?.email,
                 id: docId
@@ -158,6 +175,19 @@ const CreateTrip = () => {
                                 <h2 className='text-4xl mb-2'>{item.icon}</h2>
                                 <h2 className='font-bold text-lg text-gray-900'>{item.title}</h2>
                                 <p className='text-gray-600 text-sm mt-1'>{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                
+                <div className='space-y-4'>
+                    <h2 className='text-xl font-bold text-gray-900'>🧑‍🤝‍🧑 What age groups are in your family?</h2>
+                    <div className='grid grid-cols-2 gap-3 mt-4'>
+                        {AgeGroups.map((ageGroup, index) => (
+                            <div key={index}
+                                onClick={() => handleAgeSelection(ageGroup)}
+                                className={`p-4 border-2 rounded-lg hover:shadow-lg cursor-pointer transition-all duration-300 ${selectedAges.includes(ageGroup.value) ? 'shadow-lg border-purple-600 bg-purple-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                                <h2 className='font-bold text-sm text-gray-900'>{ageGroup.title}</h2>
                             </div>
                         ))}
                     </div>
